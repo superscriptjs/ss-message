@@ -1,0 +1,20 @@
+# SuperScript
+lib/*
+coverage/*
+
+# Node
+node_modules/*
+npm-debug.log
+
+# Node profiler logs
+isolate-*-v8.log
+
+# OS Files
+.DS_Store
+*.sw*
+dump.rdb
+dump/*
+
+# IDEA/WebStorm Project Files
+.idea
+*.iml

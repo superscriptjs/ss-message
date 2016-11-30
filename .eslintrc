@@ -1,0 +1,9 @@
+---
+extends:
+  airbnb
+
+rules:
+  handle-callback-err: [2, "^(err|error)$"]
+  no-plusplus: [2, { allowForLoopAfterthoughts: true }]
+  no-underscore-dangle: [2, { allow: ["_id"] }]
+  radix: [2, "as-needed"]
