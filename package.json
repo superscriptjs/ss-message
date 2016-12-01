@@ -26,7 +26,10 @@
   "author": "Rob Ellis",
   "license": "MIT",
   "dependencies": {
+    "async": "^2.1.4",
     "bot-lang": "^1.0.3",
-    "debug-levels": "^0.2.0"
+    "debug-levels": "^0.2.0",
+    "lodash": "^4.17.2",
+    "require-dir": "^0.3.1"
   }
 }
