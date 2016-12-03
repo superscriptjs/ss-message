@@ -45,7 +45,7 @@ describe('Message Interface', () => {
       mo.dates.should.not.be.empty;
       done();
     });
-  });
+  });  
 
   it('Should fetch entities', (done) => {
     Message.createMessage('Rob and Heather know Ashley and Brooklyn', {}, (err, mo) => {

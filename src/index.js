@@ -52,6 +52,9 @@ class Message {
     this.raw = lang.replace.all(message).trim();
     this.clean = Utils.cleanMessage(this.raw).trim();
     
+    // ??
+    this.lemString = this.clean;
+
     debug.verbose('Message before cleaning: ', message);
     debug.verbose('Message after cleaning: ', this.clean);
 
