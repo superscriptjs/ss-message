@@ -37,9 +37,18 @@ class Message {
     this.factSystem = options.factSystem;
     this.createdAt = new Date();
 
-    // This version of the message is `EXACTLY AS WRITTEN` by the user
+    
+    
+    /**
+     * We have a series of transforms that are applied to the input
+     * `original` is the message `EXACTLY AS WRITTEN` by the user
+     *
+     * `raw` leans on bot-land and expands contractions, and fixes spelling
+     *       - We also remove frivilous words, and convert to us-english.
+     *
+     * `clean` has been stripped of all punctuation and left with a word token form.
+     */
     this.original = message;
-
     this.raw = lang.replace.all(message).trim();
     this.clean = Utils.cleanMessage(this.raw).trim();
     

@@ -30,6 +30,7 @@
     "bot-lang": "^1.0.3",
     "debug-levels": "^0.2.0",
     "lodash": "^4.17.2",
+    "nlp_compromise": "^7.0.0-alpha2",
     "require-dir": "^0.3.1"
   }
 }

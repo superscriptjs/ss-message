@@ -26,6 +26,35 @@ describe('Message Interface', () => {
     });
   });
 
+  it('Should contain tags', (done) => {
+    Message.createMessage('Hello friend', {}, (err, mo) => {
+      mo.tags.should.be.eql(['hello']);
+      done();
+    });
+  });
+
+  it('Numbers should be in numeric form', (done) => {
+    Message.createMessage('what is one plus twenty-one', {}, (err, mo) => {
+      mo.clean.should.be.eql("what is 1 plus 21");
+      done();
+    });
+  });
+
+  it('should find Date Obj', (done) => {
+    Message.createMessage('If I was born on February 23 1980 how old am I', {}, (err, mo) => {
+      mo.dates.should.not.be.empty;
+      done();
+    });
+  });
+
+  it('Should fetch entities', (done) => {
+    Message.createMessage('Rob and Heather know Ashley and Brooklyn', {}, (err, mo) => {
+      mo.entities.should.not.be.empty;
+      // This still needs some work.
+      // mo.entities.should.be.eql(['Rob', 'Heather', 'Ashley', 'Brooklyn']);
+      done();
+    });
+  });
 
   describe.skip('Old Interface', () => {
     // FIXME: Currently returning [ 'Heather', 'Sydney', 'Rob Ellis', 'Ashley Brooklyn' ]
@@ -83,48 +112,9 @@ describe('Message Interface', () => {
       });
     });
 
-    it('should convert to numeric form 1', (done) => {
-      Message.createMessage('what is one plus twenty-one', { factSystem }, (mo) => {
-        mo.numbers.should.eql(['1', '21']);
-        mo.numericExp.should.be.true;
-        done();
-      });
-    });
-
-    it('should convert to numeric form 2', (done) => {
-      Message.createMessage('what is one plus three hundred and forty-five', { factSystem }, (mo) => {
-        mo.numbers.should.eql(['1', '345']);
-        mo.numericExp.should.be.true;
-        done();
-      });
-    });
-
-    it('should convert to numeric form 3', (done) => {
-      Message.createMessage('five hundred thousand and three hundred and forty-five', { factSystem }, (mo) => {
-        mo.numbers.should.eql(['500345']);
-        done();
-      });
-    });
-
-    it('should convert to numeric form 4', (done) => {
-      // This this actually done lower down in the stack. (normalizer)
-      const mo = Message.createMessage('how much is 1,000,000', { factSystem }, (mo) => {
-        mo.numericExp.should.be.false;
-        mo.numbers.should.eql(['1000000']);
-        done();
-      });
-    });
-
     it('should find expression', (done) => {
       Message.createMessage('one plus one = two', { factSystem }, (mo) => {
         mo.numericExp.should.be.true;
-        done();
-      });
-    });
-
-    it('should find Date Obj', (done) => {
-      Message.createMessage('If I was born on February 23  1980 how old am I', { factSystem }, (mo) => {
-        mo.date.should.not.be.empty;
         done();
       });
     });
