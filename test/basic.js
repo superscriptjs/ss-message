@@ -56,6 +56,23 @@ describe('Message Interface', () => {
     });
   });
 
+  it('Should pull out parts-of-speech', (done) => {
+    Message.createMessage('I like the finner things.', {}, (err, mo) => {
+      mo.nouns.should.not.be.empty;
+      mo.pronouns.should.not.be.empty;
+      mo.verbs.should.not.be.empty;
+      done();
+    });
+  });
+
+  it('singalize', (done) => {
+    Message.createMessage('i love shoes', {}, (err, mo) => {
+      mo.lemString.should.eql('i love shoe');
+      done();
+    });
+  });
+
+ 
   describe.skip('Old Interface', () => {
     // FIXME: Currently returning [ 'Heather', 'Sydney', 'Rob Ellis', 'Ashley Brooklyn' ]
     it('should parse names and nouns from message 1', (done) => {

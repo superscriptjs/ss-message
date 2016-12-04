@@ -51,9 +51,6 @@ class Message {
     this.original = message;
     this.raw = lang.replace.all(message).trim();
     this.clean = Utils.cleanMessage(this.raw).trim();
-    
-    // ??
-    this.lemString = this.clean;
 
     debug.verbose('Message before cleaning: ', message);
     debug.verbose('Message after cleaning: ', this.clean);
@@ -62,17 +59,15 @@ class Message {
     scope.message = this;
 
     let that = this;
-    let itor = function(functionName, next) {
+    const eachPluginItor = function(functionName, next) {
       const functionArgs = [];
       functionArgs.push((err, functionResponse) => {
         return next(err, null);
       });
-
-      debug.verbose(`Calling plugin function: ${functionName}`);
       functionName.apply(scope, functionArgs);
     }
 
-    async.each(this.plugins, itor, function() {
+    async.each(this.plugins, eachPluginItor, function() {
       callback(null, that);
     })
   }
@@ -106,7 +101,7 @@ const loadPlugins = function(path) {
       }
 
       Object.keys(pluginFiles[file]).forEach((func) => {
-        debug.verbose('Loading plugin: ', path, func);
+        debug.verbose('Loading plugin:', path, func);
         plugins[func] = pluginFiles[file][func];
       });
     });
