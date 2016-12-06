@@ -72,6 +72,25 @@ describe('Message Interface', () => {
     });
   });
 
+  it('Is Question', (done) => {
+    Message.createMessage('test', {}, (err, mo) => {
+      mo.isQuestion.should.be.false();
+
+      Message.createMessage('test ?', {}, (err, mo) => {
+        mo.isQuestion.should.be.true();
+
+        Message.createMessage('what is a test', {}, (err, mo) => {
+          mo.isQuestion.should.be.true();
+
+          Message.createMessage('do you think this is a test', {}, (err, mo) => {
+            mo.isQuestion.should.be.true();
+            done();
+          });
+        });
+      });
+    });
+  });
+
  
   describe.skip('Old Interface', () => {
     // FIXME: Currently returning [ 'Heather', 'Sydney', 'Rob Ellis', 'Ashley Brooklyn' ]

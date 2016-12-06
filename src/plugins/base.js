@@ -62,8 +62,8 @@ const fixup = function(cb) {
 
   // singalize / lemmatize
   // This does a slightly better job than `.split(" ")`
-  let words = new pos.Lexer().lex(that.message.clean);
-  let taggedWords = tagger.tag(words);
+  that.message.words = new pos.Lexer().lex(that.message.clean);
+  let taggedWords = tagger.tag(that.message.words);
 
   let itor = function (hash, next) {
     let word = hash[0].toLowerCase();
@@ -92,10 +92,19 @@ const fixup = function(cb) {
 
 const addQuestionTypes = function(cb) {
   // Classify Question
+  let questionWords = ["who", "whose", "whom", "what", "where", "when", "why", "which", "name", "did", "do", "does", "have", "had", "has"];
+  let isQuestion = false;
+  
+  if(this.message.raw.slice(-1) === "?") isQuestion = true;
+  if(questionWords.indexOf(this.message.words[0]) !== -1) isQuestion = true;
+  this.message.isQuestion = isQuestion;
+
+  // Sorry this isn't going to make the 1.0 cut
   // this.qtype = options.qtypes.classify(lemString);
   // this.qSubType = options.qtypes.questionType(this.raw);
-  // this.isQuestion = options.qtypes.isQuestion(this.raw);
+
   cb();
 }
 
-export default {addTags, addEntities, addDates, addPos, addWords, addQuestionTypes, fixup};
+// Order here matters
+export default {addTags, addEntities, addDates, addPos, addWords, fixup, addQuestionTypes};

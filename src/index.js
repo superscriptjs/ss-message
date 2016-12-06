@@ -37,8 +37,6 @@ class Message {
     this.factSystem = options.factSystem;
     this.createdAt = new Date();
 
-    
-    
     /**
      * We have a series of transforms that are applied to the input
      * `original` is the message `EXACTLY AS WRITTEN` by the user
@@ -58,7 +56,7 @@ class Message {
     const scope = _.merge({}, options.scope);
     scope.message = this;
 
-    let that = this;
+    let self = this;
     const eachPluginItor = function(functionName, next) {
       const functionArgs = [];
       functionArgs.push((err, functionResponse) => {
@@ -68,7 +66,7 @@ class Message {
     }
 
     async.each(this.plugins, eachPluginItor, function() {
-      callback(null, that);
+      callback(null, self);
     })
   }
 
