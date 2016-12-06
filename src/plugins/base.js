@@ -37,6 +37,9 @@ const addPos = function(cb) {
   this.message.verbs = nlp(this.message.original).match('#Verb').asArray();
   this.message.adjectives = nlp(this.message.original).match('#Adjective').asArray();
   this.message.pronouns = nlp(this.message.original).match('#Pronoun').asArray();
+
+  // Fix for pronouns getting mixed in with nouns
+  _.pullAll(this.message.nouns, this.message.pronouns);
   cb();
 }
 
@@ -98,10 +101,6 @@ const addQuestionTypes = function(cb) {
   if(this.message.raw.slice(-1) === "?") isQuestion = true;
   if(questionWords.indexOf(this.message.words[0]) !== -1) isQuestion = true;
   this.message.isQuestion = isQuestion;
-
-  // Sorry this isn't going to make the 1.0 cut
-  // this.qtype = options.qtypes.classify(lemString);
-  // this.qSubType = options.qtypes.questionType(this.raw);
 
   cb();
 }

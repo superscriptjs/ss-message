@@ -65,6 +65,16 @@ describe('Message Interface', () => {
     });
   });
 
+  it('Should pull out parts-of-speech 2', (done) => {
+    Message.createMessage('She ran to Vancouver', {}, (err, mo) => {
+      mo.nouns.should.have.lengthOf(1);
+      mo.pronouns.should.have.lengthOf(1);
+      mo.verbs.should.have.lengthOf(1);;
+      done();
+    });
+  });
+
+
   it('singalize', (done) => {
     Message.createMessage('i love shoes', {}, (err, mo) => {
       mo.lemString.should.eql('i love shoe');
