@@ -51,7 +51,8 @@ class Message {
     this.clean = Utils.cleanMessage(this.raw).trim();
 
     debug.verbose('Message before cleaning: ', message);
-    debug.verbose('Message after cleaning: ', this.clean);
+    debug.verbose('Message RAW: ', this.raw);
+    debug.verbose('Message CLEAN: ', this.clean);
 
     const scope = _.merge({}, options.scope);
     scope.message = this;

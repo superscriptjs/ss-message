@@ -82,6 +82,20 @@ describe('Message Interface', () => {
     });
   });
 
+  it('edge case 1', (done) => {
+    Message.createMessage('okay my name is Adam', {}, (err, mo) => {
+      mo.clean.should.eql("okay my name is Adam");
+      done();
+    });
+  });
+  
+  it('edge case 2', (done) => {
+    Message.createMessage('yes it is the capital of spain!', {}, (err, mo) => {
+      mo.clean.should.eql("yes it is the capital of spain");
+      done();
+    });
+  });
+  
   it('Is Question', (done) => {
     Message.createMessage('test', {}, (err, mo) => {
       mo.isQuestion.should.be.false();
