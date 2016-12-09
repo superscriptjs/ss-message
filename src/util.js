@@ -21,4 +21,4 @@ const cleanMessage = function cleanMessage(message) {
   return message;
 };
 
-export default {cleanMessage, genId};
+export default { cleanMessage, genId };

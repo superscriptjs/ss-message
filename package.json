@@ -1,27 +1,13 @@
 {
   "name": "ss-message",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "SuperScript Message Object",
   "main": "lib/index.js",
   "scripts": {
-    "build": "babel src --presets babel-preset-es2015 --out-dir lib --copy-files",
+    "build": "babel src --out-dir lib --copy-files",
     "lint": "eslint --env node src *.js",
     "test": "mocha --compilers js:babel-register test -R spec -s 1700 -t 300000 --recursive",
     "prepublish": "npm run build"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.16.0",
-    "babel-preset-es2015": "^6.16.0",
-    "babel-register": "^6.18.0",
-    "coveralls": "^2.11.9",
-    "eslint": "^3.9.1",
-    "eslint-config-airbnb": "^13.0.0",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^2.2.3",
-    "eslint-plugin-react": "^6.6.0",
-    "istanbul": "^1.1.0-alpha.1",
-    "mocha": "^3.2.0",
-    "should": "^11.1.0"
   },
   "author": "Rob Ellis",
   "license": "MIT",
@@ -29,11 +15,25 @@
     "async": "^2.1.4",
     "bot-lang": "^1.0.4",
     "debug-levels": "^0.2.0",
-    "lemmer": "^0.1.6",
+    "lemmer": "^0.2.1",
     "lodash": "^4.17.2",
     "nlp_compromise": "^7.0.0-alpha2",
     "pos": "^0.4.2",
     "qtypes": "^0.1.6",
     "require-dir": "^0.3.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-register": "^6.18.0",
+    "coveralls": "^2.11.9",
+    "eslint": "^3.12.0",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.8.0",
+    "istanbul": "^1.1.0-alpha.1",
+    "mocha": "^3.2.0",
+    "should": "^11.1.0"
   }
 }
