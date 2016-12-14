@@ -6,23 +6,29 @@ import _ from 'lodash';
 import pos from 'pos';
 
 const tagger = new pos.Tagger();
+const lexer = new pos.Lexer();
 
 const addTags = function addTags(cb) {
   this.message.tags = lang.tag.all(this.message.original);
   cb();
 };
 
+const addNlp = function addNlp(cb) {
+  this.message.nlp = nlp(this.message.original);
+  cb();
+};
+
 const addEntities = function addEntities(cb) {
-  const entities = nlp(this.message.original).match('(#Person|#Place|#Organization)').asArray();
+  const entities = this.message.nlp.match('(#Person|#Place|#Organization)').asArray();
   this.message.entities = entities;
 
   // For legacy support
-  this.message.names = nlp(this.message.original).people().asArray();
+  this.message.names = this.message.nlp.people().asArray();
   cb();
 };
 
 const addDates = function addDates(cb) {
-  this.message.dates = nlp(this.message.original).dates().asArray();
+  this.message.dates = this.message.nlp.dates().asArray();
   cb();
 };
 
@@ -32,11 +38,11 @@ const addWords = function addWords(cb) {
 };
 
 const addPos = function addPos(cb) {
-  this.message.nouns = nlp(this.message.original).match('#Noun').asArray();
-  this.message.adverbs = nlp(this.message.original).match('#Adverb').asArray();
-  this.message.verbs = nlp(this.message.original).match('#Verb').asArray();
-  this.message.adjectives = nlp(this.message.original).match('#Adjective').asArray();
-  this.message.pronouns = nlp(this.message.original).match('#Pronoun').asArray();
+  this.message.nouns = this.message.nlp.match('#Noun').asArray();
+  this.message.adverbs = this.message.nlp.match('#Adverb').asArray();
+  this.message.verbs = this.message.nlp.match('#Verb').asArray();
+  this.message.adjectives = this.message.nlp.match('#Adjective').asArray();
+  this.message.pronouns = this.message.nlp.match('#Pronoun').asArray();
 
   // Fix for pronouns getting mixed in with nouns
   _.pullAll(this.message.nouns, this.message.pronouns);
@@ -57,15 +63,14 @@ const pennToWordnet = function pennToWordnet(pennTag) {
 };
 
 const fixup = function fixup(cb) {
-  const that = this;
   // fix numeric forms
   // twenty-one => 21
-  that.message.clean = nlp(that.message.clean).values().toNumber().plaintext();
+  this.message.clean = nlp(this.message.clean).values().toNumber().plaintext();
 
   // singalize / lemmatize
   // This does a slightly better job than `.split(" ")`
-  that.message.words = new pos.Lexer().lex(that.message.clean);
-  const taggedWords = tagger.tag(that.message.words);
+  this.message.words = lexer.lex(this.message.clean);
+  const taggedWords = tagger.tag(this.message.words);
 
   const itor = (hash, next) => {
     const word = hash[0].toLowerCase();
@@ -85,7 +90,7 @@ const fixup = function fixup(cb) {
   };
 
   async.map(taggedWords, itor, (err, transformed) => {
-    that.message.lemString = _.map(_.flatten(transformed), a => a.split('#')[0]).join(' ');
+    this.message.lemString = _.map(_.flatten(transformed), a => a.split('#')[0]).join(' ');
     cb();
   });
 };
@@ -103,4 +108,13 @@ const addQuestionTypes = function addQuestionTypes(cb) {
 };
 
 // Order here matters
-export default { addTags, addEntities, addDates, addPos, addWords, fixup, addQuestionTypes };
+export default {
+  addTags,
+  addNlp,
+  addEntities,
+  addDates,
+  addPos,
+  addWords,
+  fixup,
+  addQuestionTypes,
+};
