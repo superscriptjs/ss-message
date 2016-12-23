@@ -77,16 +77,10 @@ const fixup = function fixup(cb) {
     const tag = pennToWordnet(hash[1]);
 
     if (tag) {
-      try {
-        Lemmer.lemmatize(`${word}#${tag}`, next);
-      } catch (e) {
-        // This is probably because it isn't an english word.
-        next(null, [word]);
-      }
-    } else {
-      // Some words don't have a tag ie: like, to.
-      next(null, [word]);
+      return Lemmer.lemmatize(`${word}#${tag}`, next);
     }
+    // Some words don't have a tag ie: like, to.
+    return next(null, [word]);
   };
 
   async.map(taggedWords, itor, (err, transformed) => {

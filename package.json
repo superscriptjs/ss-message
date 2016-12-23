@@ -1,6 +1,6 @@
 {
   "name": "ss-message",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "SuperScript Message Object",
   "main": "lib/index.js",
   "scripts": {
@@ -11,9 +11,10 @@
   },
   "author": "Rob Ellis",
   "license": "MIT",
+  "repository": "superscriptjs/ss-message",
   "dependencies": {
     "async": "^2.1.4",
-    "bot-lang": "^1.0.6",
+    "bot-lang": "^1.0.7",
     "debug-levels": "^0.2.0",
     "lemmer": "^0.2.1",
     "lodash": "^4.17.2",
@@ -24,7 +25,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",
-    "babel-preset-env": "^1.1.1",
+    "babel-preset-env": "^1.1.4",
     "babel-register": "^6.18.0",
     "coveralls": "^2.11.9",
     "eslint": "^3.12.0",
@@ -34,6 +35,6 @@
     "eslint-plugin-react": "^6.8.0",
     "istanbul": "^1.1.0-alpha.1",
     "mocha": "^3.2.0",
-    "should": "^11.1.0"
+    "should": "^11.1.2"
   }
 }
