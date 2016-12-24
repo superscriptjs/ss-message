@@ -20,8 +20,8 @@ describe('Message Interface', () => {
   });
 
   it('Should call plugin', (done) => {
-    Message.createMessage('test', { pluginsPath }, (err, mo) => {
-      should(mo.plugins).be.instanceof(Object).and.have.key('qm');
+    Message.loadPlugins(pluginsPath);
+    Message.createMessage('test', {}, (err, mo) => {
       should(mo.prop).equal('test???');
       done();
     });
