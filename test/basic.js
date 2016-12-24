@@ -2,7 +2,7 @@
 
 import mocha from 'mocha';
 import should from 'should/as-function';
-
+import nlp from 'nlp_compromise';
 import Message from '../src';
 
 describe('Message Interface', () => {
@@ -112,6 +112,22 @@ describe('Message Interface', () => {
             done();
           });
         });
+      });
+    });
+  });
+
+  describe('HasExpression Interface', () => {
+    it('math 1', (done) => {
+      Message.createMessage('what is ten plus ten?', {}, (err, mo) => {
+        should(mo.expression).be.true();
+        done();
+      });
+    });
+
+    it('math 2', (done) => {
+      Message.createMessage('when is ten oclock?', {}, (err, mo) => {
+        should(mo.expression).be.false();
+        done();
       });
     });
   });

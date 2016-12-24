@@ -49,6 +49,18 @@ const addPos = function addPos(cb) {
   cb();
 };
 
+const hasExpression = function hasExpression(cb) {
+  const expressionTerms = ["add", "plus", "and", "+", "-", "minus", "subtract", "x", "times", "multiply", "multiplied", "of", "divide", "divided", "/", "half", "percent", "%"];
+
+  const containsArithmeticTerm = _.some(this.message.words, (word) => {
+    return expressionTerms.indexOf(word) !== -1
+  });
+
+  const hasTwoNumbers = this.message.nlp.match('#Value').asArray().length >= 2;
+  this.message.expression = (containsArithmeticTerm && hasTwoNumbers)
+  cb();
+};
+
 const pennToWordnet = function pennToWordnet(pennTag) {
   if (pennTag[0] === 'J') {
     return 'a';
@@ -115,6 +127,7 @@ export default {
   addDates,
   addPos,
   addWords,
+  hasExpression,
   fixup,
   addQuestionTypes,
 };
