@@ -2,7 +2,7 @@
 
 import mocha from 'mocha';
 import should from 'should/as-function';
-import nlp from 'nlp_compromise';
+
 import Message from '../src';
 
 describe('Message Interface', () => {
@@ -43,14 +43,14 @@ describe('Message Interface', () => {
 
   it('should find Date Obj', (done) => {
     Message.createMessage('If I was born on February 23 1980 how old am I', {}, (err, mo) => {
-      should(mo.dates).not.be.empty;
+      should(mo.dates).not.be.empty();
       done();
     });
   });
 
   it('Should fetch entities', (done) => {
     Message.createMessage('Rob and Heather know Ashley and Brooklyn', {}, (err, mo) => {
-      should(mo.entities).not.be.empty;
+      should(mo.entities).not.be.empty();
       // This still needs some work.
       // mo.entities.should.be.eql(['Rob', 'Heather', 'Ashley', 'Brooklyn']);
       done();
@@ -59,9 +59,9 @@ describe('Message Interface', () => {
 
   it('Should pull out parts-of-speech', (done) => {
     Message.createMessage('I like the finner things.', {}, (err, mo) => {
-      should(mo.nouns).not.be.empty;
-      should(mo.pronouns).not.be.empty;
-      should(mo.verbs).not.be.empty;
+      should(mo.nouns).not.be.empty();
+      should(mo.pronouns).not.be.empty();
+      should(mo.verbs).not.be.empty();
       done();
     });
   });
@@ -191,7 +191,7 @@ describe('Message Interface', () => {
 
     it('should find expression', (done) => {
       Message.createMessage('one plus one = two', { factSystem }, (mo) => {
-        should(mo.numericExp).be.true;
+        should(mo.numericExp).be.true();
         done();
       });
     });
