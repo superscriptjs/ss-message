@@ -1,6 +1,6 @@
 {
   "name": "ss-message",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "SuperScript Message Object",
   "main": "lib/index.js",
   "scripts": {
@@ -14,7 +14,7 @@
   "repository": "superscriptjs/ss-message",
   "dependencies": {
     "async": "^2.1.4",
-    "bot-lang": "^1.0.8",
+    "bot-lang": "^1.0.9",
     "debug-levels": "^0.2.0",
     "lemmer": "^0.2.1",
     "lodash": "^4.17.4",
