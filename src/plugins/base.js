@@ -1,5 +1,5 @@
 import lang from 'bot-lang';
-import nlp from 'nlp_compromise';
+import nlp from 'compromise';
 import Lemmer from 'lemmer';
 import async from 'async';
 import _ from 'lodash';
@@ -19,16 +19,16 @@ const addNlp = function addNlp(cb) {
 };
 
 const addEntities = function addEntities(cb) {
-  const entities = this.message.nlp.match('(#Person|#Place|#Organization)').asArray();
+  const entities = this.message.nlp.match('(#Person|#Place|#Organization)').out('array');
   this.message.entities = entities;
 
   // For legacy support
-  this.message.names = this.message.nlp.people().asArray();
+  this.message.names = this.message.nlp.people().out('array');
   cb();
 };
 
 const addDates = function addDates(cb) {
-  this.message.dates = this.message.nlp.dates().asArray();
+  this.message.dates = this.message.nlp.dates().out('array');
   cb();
 };
 
@@ -38,11 +38,11 @@ const addWords = function addWords(cb) {
 };
 
 const addPos = function addPos(cb) {
-  this.message.nouns = this.message.nlp.match('#Noun').asArray();
-  this.message.adverbs = this.message.nlp.match('#Adverb').asArray();
-  this.message.verbs = this.message.nlp.match('#Verb').asArray();
-  this.message.adjectives = this.message.nlp.match('#Adjective').asArray();
-  this.message.pronouns = this.message.nlp.match('#Pronoun').asArray();
+  this.message.nouns = this.message.nlp.match('#Noun').out('array');
+  this.message.adverbs = this.message.nlp.match('#Adverb').out('array');
+  this.message.verbs = this.message.nlp.match('#Verb').out('array');
+  this.message.adjectives = this.message.nlp.match('#Adjective').out('array');
+  this.message.pronouns = this.message.nlp.match('#Pronoun').out('array');
 
   // Fix for pronouns getting mixed in with nouns
   _.pullAll(this.message.nouns, this.message.pronouns);
@@ -50,14 +50,12 @@ const addPos = function addPos(cb) {
 };
 
 const hasExpression = function hasExpression(cb) {
-  const expressionTerms = ["add", "plus", "and", "+", "-", "minus", "subtract", "x", "times", "multiply", "multiplied", "of", "divide", "divided", "/", "half", "percent", "%"];
+  const expressionTerms = ['add', 'plus', 'and', '+', '-', 'minus', 'subtract', 'x', 'times', 'multiply', 'multiplied', 'of', 'divide', 'divided', '/', 'half', 'percent', '%'];
 
-  const containsArithmeticTerm = _.some(this.message.words, (word) => {
-    return expressionTerms.indexOf(word) !== -1
-  });
+  const containsArithmeticTerm = _.some(this.message.words, word => expressionTerms.indexOf(word) !== -1);
 
-  const hasTwoNumbers = this.message.nlp.match('#Value').asArray().length >= 2;
-  this.message.expression = (containsArithmeticTerm && hasTwoNumbers)
+  const hasTwoNumbers = this.message.nlp.match('#Value').out('array').length >= 2;
+  this.message.expression = (containsArithmeticTerm && hasTwoNumbers);
   cb();
 };
 
@@ -77,7 +75,7 @@ const pennToWordnet = function pennToWordnet(pennTag) {
 const fixup = function fixup(cb) {
   // fix numeric forms
   // twenty-one => 21
-  this.message.clean = nlp(this.message.clean).values().toNumber().plaintext();
+  this.message.clean = nlp(this.message.clean).values().toNumber().all().out('text');
 
   // singalize / lemmatize
   // This does a slightly better job than `.split(" ")`

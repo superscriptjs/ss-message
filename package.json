@@ -1,6 +1,6 @@
 {
   "name": "ss-message",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "SuperScript Message Object",
   "main": "lib/index.js",
   "scripts": {
@@ -15,10 +15,10 @@
   "dependencies": {
     "async": "^2.1.4",
     "bot-lang": "^1.1.0",
+    "compromise": "7.0.9",
     "debug-levels": "^0.2.0",
     "lemmer": "^0.2.1",
     "lodash": "^4.17.4",
-    "nlp_compromise": "7.0.0-alpha2",
     "pos": "^0.4.2",
     "require-dir": "^0.3.1"
   },
