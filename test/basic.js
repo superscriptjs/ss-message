@@ -130,6 +130,21 @@ describe('Message Interface', () => {
         done();
       });
     });
+
+    it('math 3', (done) => {
+      Message.createMessage('What is 1+1?', {}, (err, mo) => {
+        should(mo.expression).be.true();
+        done();
+      });
+    });
+
+    it('math 4', (done) => {
+      Message.createMessage('What is half of six?', {}, (err, mo) => {
+        should(mo.expression).be.true();
+        done();
+      });
+    });
+
   });
 
 

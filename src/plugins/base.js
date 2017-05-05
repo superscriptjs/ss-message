@@ -49,12 +49,30 @@ const addPos = function addPos(cb) {
   cb();
 };
 
+// We look at math type questions
+// What is 1+1?
+// What is 4+2-1?
+// What is 50 percent of 40?
+// What is half of six?
+// What is seven multiplied by six?
+// What is 7 divided by 0?
+// What is the square root of 9?
+// What is a third of 6?
 const hasExpression = function hasExpression(cb) {
   const expressionTerms = ['add', 'plus', 'and', '+', '-', 'minus', 'subtract', 'x', 'times', 'multiply', 'multiplied', 'of', 'divide', 'divided', '/', 'half', 'percent', '%'];
 
   const containsArithmeticTerm = _.some(this.message.words, word => expressionTerms.indexOf(word) !== -1);
 
-  const hasTwoNumbers = this.message.nlp.match('#Value').out('array').length >= 2;
+  const burstSentence = this.message.words.join(" ");
+  const nlp2 = nlp(burstSentence);
+  this.numbers = nlp2.match('#Value').out('array');
+
+  // Special case "half" is really .5 and a number
+  if (_.indexOf(this.message.words, "half")) {
+    this.numbers.push(.5);
+  }
+  const hasTwoNumbers = this.numbers.length >= 2;
+
   this.message.expression = (containsArithmeticTerm && hasTwoNumbers);
   cb();
 };
@@ -119,7 +137,7 @@ export default {
   addDates,
   addPos,
   addWords,
-  hasExpression,
   fixup,
+  hasExpression,
   addQuestionTypes,
 };
