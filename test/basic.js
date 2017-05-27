@@ -97,6 +97,14 @@ describe('Message Interface', () => {
     });
   });
 
+  it('edge case - remove colons', (done) => {
+    Message.createMessage('what is time is 12:30 and: next: thing?', {}, (err, mo) => {
+      should(mo.clean).eql('what is time is 12:30 and next thing');
+      done();
+    });
+  });
+
+
   it('Is Question', (done) => {
     Message.createMessage('test', {}, (err, mo) => {
       should(mo.isQuestion).be.false();
@@ -119,8 +127,6 @@ describe('Message Interface', () => {
       });
     });
   });
-
-
 
 
   describe('HasExpression Interface', () => {

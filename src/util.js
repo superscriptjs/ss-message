@@ -18,6 +18,9 @@ const cleanMessage = function cleanMessage(message) {
   message = message.replace(/\s'\s?/g, ' ');
   message = message.replace(/\s?!\s?/g, ' ');
   message = message.replace(/\?\s?/g, ' ');
+  message = message.replace(/[a-z](:)/gi, function(match, p1) {
+    return match.replace(/:/,"");
+  });
   return message;
 };
 
