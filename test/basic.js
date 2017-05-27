@@ -107,14 +107,21 @@ describe('Message Interface', () => {
         Message.createMessage('what is a test', {}, (err, mo) => {
           should(mo.isQuestion).be.true();
 
-          Message.createMessage('do you think this is a test', {}, (err, mo) => {
+          Message.createMessage('What is a test', {}, (err, mo) => {
             should(mo.isQuestion).be.true();
-            done();
+
+            Message.createMessage('do you think this is a test', {}, (err, mo) => {
+              should(mo.isQuestion).be.true();
+              done();
+            });
           });
         });
       });
     });
   });
+
+
+
 
   describe('HasExpression Interface', () => {
     it('math 1', (done) => {

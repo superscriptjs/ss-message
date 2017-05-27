@@ -123,7 +123,10 @@ const addQuestionTypes = function addQuestionTypes(cb) {
   let isQuestion = false;
 
   if (this.message.raw.slice(-1) === '?') isQuestion = true;
-  if (questionWords.indexOf(this.message.words[0]) !== -1) isQuestion = true;
+  
+  if (questionWords.indexOf(this.message.words[0].toLowerCase()) !== -1) {
+    isQuestion = true;
+  }
   this.message.isQuestion = isQuestion;
 
   cb();

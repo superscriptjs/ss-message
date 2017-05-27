@@ -13,7 +13,7 @@
   "license": "MIT",
   "repository": "superscriptjs/ss-message",
   "dependencies": {
-    "async": "^2.3.0",
+    "async": "^2.4.1",
     "bot-lang": "^1.1.1",
     "compromise": "^9.0.0",
     "debug-levels": "^0.2.0",
