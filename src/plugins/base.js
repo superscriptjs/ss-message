@@ -65,13 +65,14 @@ const hasExpression = function hasExpression(cb) {
 
   const burstSentence = this.message.words.join(" ");
   const nlp2 = nlp(burstSentence);
-  this.numbers = nlp2.match('#Value').out('array');
+  this.message.numbers = nlp2.match('#Value').out('array');
+  this.message.numbers = this.message.numbers.map(function(x){ return +x; });
 
   // Special case "half" is really .5 and a number
-  if (_.indexOf(this.message.words, "half")) {
-    this.numbers.push(.5);
+  if (_.indexOf(this.message.words, "half") !== -1) {
+    this.message.numbers.push(.5);
   }
-  const hasTwoNumbers = this.numbers.length >= 2;
+  const hasTwoNumbers = this.message.numbers.length >= 2;
 
   this.message.expression = (containsArithmeticTerm && hasTwoNumbers);
   cb();
