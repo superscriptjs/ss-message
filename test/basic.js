@@ -48,6 +48,13 @@ describe('Message Interface', () => {
     });
   });
 
+  it('should find Date Obj 2', (done) => {
+    Message.createMessage('Lets meet at 10 o\'clock', {}, (err, mo) => {
+      should(mo.dates).not.be.empty();
+      done();
+    });
+  });
+  
   it('Should fetch entities', (done) => {
     Message.createMessage('Rob and Heather know Ashley and Brooklyn', {}, (err, mo) => {
       should(mo.entities).not.be.empty();

@@ -14,7 +14,8 @@ const addTags = function addTags(cb) {
 };
 
 const addNlp = function addNlp(cb) {
-  this.message.nlp = nlp(this.message.original);
+  var date_clean_string = this.message.original.replace(/(\d+)\so'?clock/,'$1:00');
+  this.message.nlp = nlp(date_clean_string);
   cb();
 };
 
