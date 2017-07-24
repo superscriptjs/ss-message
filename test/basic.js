@@ -111,6 +111,12 @@ describe('Message Interface', () => {
     });
   });
 
+  it('edge case - remove parentheses', (done) => {
+    Message.createMessage('who is (mario)', {}, (err, mo) => {
+      should(mo.clean).eql('who is mario');
+      done();
+    });
+  });
 
   it('Is Question', (done) => {
     Message.createMessage('test', {}, (err, mo) => {
