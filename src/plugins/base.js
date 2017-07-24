@@ -129,8 +129,8 @@ const addQuestionTypes = function addQuestionTypes(cb) {
   if (this.message.words.length !== 0){
     if (questionWords.indexOf(this.message.words[0].toLowerCase()) !== -1) {
       isQuestion = true;
-    }    
-  } 
+    }
+  }
   this.message.isQuestion = isQuestion;
 
   cb();
