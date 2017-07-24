@@ -111,6 +111,7 @@ describe('Message Interface', () => {
     });
   });
 
+  // This might have odd side effects when trying to evaluate math expressions
   it('edge case - remove parentheses', (done) => {
     Message.createMessage('who is (mario)', {}, (err, mo) => {
       should(mo.clean).eql('who is mario');
