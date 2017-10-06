@@ -50,6 +50,13 @@ const addPos = function addPos(cb) {
   cb();
 };
 
+const addEmail = function addEmail(cb) {
+  let raw = this.message.raw;
+  this.message.emails = raw.match(/([a-zA-Z0-9._+-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
+  cb();
+};
+
+
 // We look at math type questions
 // What is 1+1?
 // What is 4+2-1?
@@ -143,6 +150,7 @@ export default {
   addEntities,
   addDates,
   addPos,
+  addEmail,
   addWords,
   fixup,
   hasExpression,

@@ -82,6 +82,12 @@ describe('Message Interface', () => {
     });
   });
 
+  it('email', (done) => {
+    Message.createMessage('my email is abc@examile.com', {}, (err, mo) => {
+      should(mo.emails[0]).eql('abc@examile.com');
+      done();
+    });
+  });
 
   it('singalize', (done) => {
     Message.createMessage('i love shoes', {}, (err, mo) => {
