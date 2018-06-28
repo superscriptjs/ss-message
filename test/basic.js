@@ -54,7 +54,7 @@ describe('Message Interface', () => {
       done();
     });
   });
-  
+
   it('Should fetch entities', (done) => {
     Message.createMessage('Rob and Heather know Ashley and Brooklyn', {}, (err, mo) => {
       should(mo.entities).not.be.empty();
@@ -172,8 +172,9 @@ describe('Message Interface', () => {
     });
 
     it('math 3', (done) => {
-      Message.createMessage('What is 1+1?', {}, (err, mo) => {
+      Message.createMessage('What is 1+1.2?', {}, (err, mo) => {
         should(mo.expression).be.true();
+        should(mo.clean).be.equal('What is 1+1.2');
         done();
       });
     });

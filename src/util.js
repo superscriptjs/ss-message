@@ -9,7 +9,7 @@ const genId = function genId() {
 };
 
 const cleanMessage = function cleanMessage(message) {
-  message = message.replace(/\./g, ' ');
+  message = message.replace(/\.(?!\d)/g, ' ');
   message = message.replace(/\s,\s/g, ' ');
   // these used to be bursted but are not anymore.
   message = message.replace(/([a-zA-Z]),\s/g, '$1 ');
